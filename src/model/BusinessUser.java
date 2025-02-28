@@ -50,10 +50,29 @@ public class BusinessUser extends RegisterUser{
 
 	
 	
-	
+	// params[0] - zinas teksts
+	// params[1] - lapas nosaukums, kur publicet zinu
+	// params[2] - otras lapas nosaukums, kur publicet zinu (var ari nebut)
 	@Override
 	public void createPost(PostType postType, String... params) throws Exception {
 		// TODO Auto-generated method stub
+		if (postType != null && params != null) {
+			if (params.length >= 2) {
+				Post newPost = new Post(params[0]);
+				
+				for (int i = 1; i < params.length; i++) {
+					for (Page tempP : allPagesForBusinessUser) {
+						if (params[i].equals(tempP.getTitle())) {
+							tempP.getPostsInPage().add(newPost);
+						}
+					}
+					
+				}
+				
+			} else {
+				throw new Exception("MESSAGE TEXT AND PAGE TITLE ARE NECESSARY");
+			}
+		}
 		
 	}
 	
