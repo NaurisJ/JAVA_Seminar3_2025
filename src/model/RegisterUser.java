@@ -53,7 +53,7 @@ public abstract class RegisterUser extends GuestUser implements IPostCreate{ // 
 	}
 	
 	public RegisterUser() {
-		super();
+		super(); // GuestUser konstruktors
 		setUsername("Testa.lietotajs");
 		setPassword("123qwerty");
 	}
