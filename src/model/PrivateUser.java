@@ -6,8 +6,8 @@ public class PrivateUser extends RegisterUser{
 	
 	private String name;
 	private String surname;
-	private ArrayList<Post> privatePost = new ArrayList<Post>();
-	private ArrayList<Post> publicPost = new ArrayList<Post>();
+	private ArrayList<Post> privatePosts = new ArrayList<Post>();
+	private ArrayList<Post> publicPosts = new ArrayList<Post>();
 	private ArrayList<RegisterUser> allFollowers = new ArrayList<RegisterUser>();
 	
 	// getter
@@ -21,11 +21,11 @@ public class PrivateUser extends RegisterUser{
 	}
 	
 	public ArrayList<Post> getPrivatePost() {
-		return privatePost;
+		return privatePosts;
 	}
 
 	public ArrayList<Post> getPublicPost() {
-		return publicPost;
+		return publicPosts;
 	}
 
 	public ArrayList<RegisterUser> getAllFollowers() {
@@ -75,19 +75,21 @@ public class PrivateUser extends RegisterUser{
 	
 
 
-
-
-
-
-
-
-
-
-
-
-
 	@Override
-	public void createPost(PostType postType, String ...params) {
-		// TODO something
+	public void createPost(PostType postType, String ...params) throws Exception{
+		if (postType != null && params != null) {
+			if (params.length != 0) {
+				Post newPost = new Post(params[0]);
+				if (postType.equals(PostType.privatePost)) {
+					privatePosts.add(newPost);
+				} else if (postType.equals(PostType.publicPost)) {
+					publicPosts.add(newPost);
+				}
+			} else {
+				throw new Exception("Msg text is not necessary");
+			}
+		} else {
+			throw new NullPointerException("Params should be with real reference");
+		}
 	}
 }
