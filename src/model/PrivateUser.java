@@ -20,11 +20,11 @@ public class PrivateUser extends RegisterUser{
 		return surname;
 	}
 	
-	public ArrayList<Post> getPrivatePost() {
+	public ArrayList<Post> getPrivatePosts() {
 		return privatePosts;
 	}
 
-	public ArrayList<Post> getPublicPost() {
+	public ArrayList<Post> getPublicPosts() {
 		return publicPosts;
 	}
 

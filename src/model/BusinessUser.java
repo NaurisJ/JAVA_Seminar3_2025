@@ -44,9 +44,6 @@ public class BusinessUser extends RegisterUser{
 
 
 
-	public void createPage(String title, String description) {
-		
-	}
 
 	
 	
@@ -55,25 +52,40 @@ public class BusinessUser extends RegisterUser{
 	// params[2] - otras lapas nosaukums, kur publicet zinu (var ari nebut)
 	@Override
 	public void createPost(PostType postType, String... params) throws Exception {
-		// TODO Auto-generated method stub
-		if (postType != null && params != null) {
-			if (params.length >= 2) {
+		if(postType != null && params != null) {
+			if(params.length >= 2) {
 				Post newPost = new Post(params[0]);
 				
-				for (int i = 1; i < params.length; i++) {
-					for (Page tempP : allPagesForBusinessUser) {
-						if (params[i].equals(tempP.getTitle())) {
+				for(int i = 1; i < params.length; i++) {
+					for(Page tempP: allPagesForBusinessUser) {
+						if(params[i].equals(tempP.getTitle())) {
 							tempP.getPostsInPage().add(newPost);
 						}
 					}
-					
 				}
-				
-			} else {
-				throw new Exception("MESSAGE TEXT AND PAGE TITLE ARE NECESSARY");
+			}
+			else
+			{
+				throw new Exception("Message text and page title are necessary");
 			}
 		}
-		
+		else
+		{
+			throw new NullPointerException("Params should be with real reference");
+		}
+	}
+	
+	public void createPage(String inputTitle, String inputDescription) throws NullPointerException {
+		if(inputTitle != null && inputDescription != null) {
+			
+			Page newPage = new Page(inputTitle, inputDescription);
+			allPagesForBusinessUser.add(newPage);
+			
+		}
+		else
+		{
+			throw new NullPointerException("Params should be with real reference");
+		}
 	}
 	
 	

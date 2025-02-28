@@ -3,6 +3,8 @@ package model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import service.MainService;
+
 public abstract class RegisterUser extends GuestUser implements IPostCreate{ // nekad netiks veidoti objekti no sis klases, bet si klase tiks izmantota ka super klase
 	
 	// mainigie
@@ -27,7 +29,7 @@ public abstract class RegisterUser extends GuestUser implements IPostCreate{ // 
 	
 	public void setUsername(String inputUsername) {
 		if (inputUsername != null
-				&& inputUsername.matches("[A-Za-z1-9._]{3,20}")) {
+				&& inputUsername.matches("[A-Za-z1-9._]{3,25}")) {
 			username = inputUsername;
 		} else {
 			username = "No username";
@@ -37,7 +39,7 @@ public abstract class RegisterUser extends GuestUser implements IPostCreate{ // 
 	
 	public void setPassword(String inputPassword) {
 		if (inputPassword != null
-				&& inputPassword.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$")) {	
+				&& inputPassword.matches("(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")) {	
 			
 			try {
 				MessageDigest md = MessageDigest.getInstance("MD5");
@@ -63,6 +65,25 @@ public abstract class RegisterUser extends GuestUser implements IPostCreate{ // 
 		setUsername(inputUsername);
 		setPassword(inputPassword);
 	}
+	
+	
+	public void followPage(String inputTitle) throws NullPointerException{
+		if (inputTitle != null) {
+			for ( GuestUser tempU : MainService.getAllUsers()) {
+				if (tempU instanceof BusinessUser) {
+					BusinessUser tempBU = (BusinessUser)tempU;
+					for (Page tempP : tempBU.getAllPagesForBusinessUser()) {
+						if (tempP.getTitle().equals(inputTitle)) {
+							tempP.getAllFollowersUser().add(this);
+						}
+					}
+				}
+			}
+		} else {
+			throw new NullPointerException("TITLE SHOULD BE WITH REAL REFERENCE");
+		}
+	}
+	
 	
 	public String toString() {
 		return super.toString() + "| USERNAME: " + username + " | PASSWORD: " + password;
