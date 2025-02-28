@@ -51,6 +51,10 @@ public class MainService {
 			System.out.println("Sekotaji: " + u4.getAllPagesForBusinessUser().get(0).getAllFollowersUser());
 			
 			
+			u4.followPrivateUser("gomeza23"); // SIA ZIEDI VENTSPILI pieseko gomeza23
+			System.out.println(u3.getSurname() + " sekotaji ir -> " + u3.getAllFollowers());
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

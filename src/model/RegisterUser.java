@@ -84,6 +84,21 @@ public abstract class RegisterUser extends GuestUser implements IPostCreate{ // 
 		}
 	}
 	
+	public void followPrivateUser(String inputUsername) {
+		if (inputUsername != null) {
+			for (GuestUser tempU : MainService.getAllUsers()) {
+				if (tempU instanceof PrivateUser) {
+					PrivateUser tempPU = (PrivateUser) tempU;
+					if (tempPU.getUsername().equals(inputUsername)) {
+						tempPU.getAllFollowers().add(this);
+					}
+				}
+			}
+		} else {
+			throw new NullPointerException("USERNAME SHOULD BE WITH REFERENCE");
+		}
+	}
+	
 	
 	public String toString() {
 		return super.toString() + "| USERNAME: " + username + " | PASSWORD: " + password;
