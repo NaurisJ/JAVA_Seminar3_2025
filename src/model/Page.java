@@ -46,7 +46,18 @@ public class Page {
 	
 	// bez arg konstruktors
 	public Page() {
-		
+		setTitle("TEST TITLE");
+		setDesctiption("TEST DESCRIPTION");
+	}
+	
+	public Page(String title, String description) {
+		setTitle(title);
+		setDesctiption(description);
+	}
+	
+	
+	public String toString() {
+		return "TITLE - " + title + " | DESCRIPTION - " + description + " | POSTS IN PAGE - " + postsInPage;
 	}
 	
 	
