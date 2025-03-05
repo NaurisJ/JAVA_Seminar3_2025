@@ -55,6 +55,8 @@ public class MainService {
 			System.out.println(u3.getSurname() + " sekotaji ir -> " + u3.getAllFollowers());
 			
 			
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

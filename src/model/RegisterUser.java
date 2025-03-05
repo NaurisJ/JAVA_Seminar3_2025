@@ -100,6 +100,29 @@ public abstract class RegisterUser extends GuestUser implements IPostCreate{ // 
 	}
 	
 	
+	public boolean login(String inputUsername, String inputPassword) throws Exception {
+		if (inputUsername == null || inputPassword == null) {
+			throw new Exception("Username and password should be with real reference");
+		}
+		for (GuestUser tempU : MainService.getAllUsers()) {
+			if(tempU instanceof RegisterUser) {
+				RegisterUser tempRU = (RegisterUser)tempU;
+				
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				md.update(inputPassword.getBytes());
+				String inputPasswordEncripted = new String(md.digest());
+				
+				if (tempRU.getUsername().equals(inputUsername) &&
+						tempRU.getPassword().equals(inputPasswordEncripted)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
+	
 	public String toString() {
 		return super.toString() + "| USERNAME: " + username + " | PASSWORD: " + password;
 	}
